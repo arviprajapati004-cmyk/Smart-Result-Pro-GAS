@@ -3,220 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Result Pro - Cloud System</title>
+    <title>Smart Result Pro - Cloud Suite</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        :root { --primary: #4f46e5; --bg-body: #f0f2f5; }
-        body { font-family: 'Hind Vadodara', sans-serif; background-color: var(--bg-body); margin: 0; }
-        .view-section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+        :root { --primary: #4f46e5; --bg-body: #f1f5f9; }
+        body { font-family: 'Hind Vadodara', sans-serif; background-color: var(--bg-body); color: #1e293b; }
+        
+        .nav-sidebar { background: white; box-shadow: 2px 0 10px rgba(0,0,0,0.05); min-height: 100vh; }
+        .view-section { display: none; padding: 30px; }
         .view-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Dashboard Styles */
-        .colorful-card { border: none; border-radius: 20px; color: white; padding: 25px; transition: 0.3s; cursor: pointer; height: 100%; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
-        .colorful-card:hover { transform: translateY(-10px); }
-        .theme-blue { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
-        .theme-orange { background: linear-gradient(135deg, #f97316, #db2777); }
-        .theme-teal { background: linear-gradient(135deg, #0d9488, #059669); }
+        /* Premium Dashboard UI from Image */
+        .dash-card { border-radius: 20px; padding: 25px; color: white; border: none; transition: 0.3s; cursor: pointer; height: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .dash-card:hover { transform: translateY(-5px); }
+        .bg-gradient-blue { background: linear-gradient(135deg, #6366f1, #a855f7); }
+        .bg-gradient-orange { background: linear-gradient(135deg, #f97316, #ef4444); }
+        .bg-gradient-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .bg-gradient-teal { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
 
-        /* Table & Input Styles */
-        .table-card { background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; padding: 20px; }
-        .marks-input { width: 60px; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center; font-weight: 700; }
-        .sticky-col { position: sticky; left: 0; background: white; z-index: 10; border-right: 2px solid #f1f5f9; }
+        .sub-menu-item { background: rgba(255,255,255,0.15); margin-top: 10px; padding: 12px; border-radius: 12px; display: flex; align-items: center; transition: 0.2s; }
+        .sub-menu-item:hover { background: rgba(255,255,255,0.3); }
+        
+        /* Form & Table Styles */
+        .premium-table-card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .marks-input { width: 65px; border: 1px solid #e2e8f0; border-radius: 8px; text-align: center; padding: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold text-primary" href="#" onclick="showSection('dashboard')">
-                <i class="bi bi-layers-fill me-2"></i> Result Pro Cloud
-            </a>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        
-        <div id="dashboard" class="view-section active">
-            <div class="bg-primary text-white p-5 rounded-4 mb-5 shadow-lg">
-                <h1 class="fw-bold">નમસ્તે, એડમિન!</h1>
-                <p class="fs-5 opacity-75">તમારી શાળાનું સંપૂર્ણ ક્લાઉડ બેઝ્ડ પરિણામ મેનેજમેન્ટ.</p>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4" onclick="showSection('register')">
-                    <div class="colorful-card theme-blue">
-                        <i class="bi bi-person-plus-fill fs-1"></i>
-                        <h4 class="mt-3">વિદ્યાર્થી રજીસ્ટ્રેશન</h4>
-                        <p class="small">નવા વિદ્યાર્થી ઉમેરો/સુધારો</p>
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-12">
+            
+            <div id="dashboard" class="view-section active">
+                <h4 class="fw-bold mb-4 text-primary"><i class="bi bi-grid-fill me-2"></i> મુખ્ય ડેશબોર્ડ</h4>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4" onclick="showSection('register')">
+                        <div class="dash-card bg-gradient-blue">
+                            <h5>વિદ્યાર્થી રજીસ્ટ્રેશન</h5>
+                            <p class="small opacity-75">નવા વિદ્યાર્થી ઉમેરો, વિગતો સુધારો કે ડીલીટ કરો.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" onclick="showSection('config')">
+                        <div class="dash-card bg-gradient-blue">
+                            <h5>શાળા પ્રોફાઈલ</h5>
+                            <p class="small opacity-75">શાળાનું નામ, વર્ષ અને અન્ય સેટિંગ્સ.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" onclick="showSection('analysis')">
+                        <div class="dash-card bg-gradient-blue">
+                            <h5>પરિણામ વિશ્લેષણ (Analysis)</h5>
+                            <p class="small opacity-75">પાસ/નાપાસ, રેન્કિંગ અને ગ્રેડ ચાર્ટ.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4" onclick="showSection('marks-entry')">
-                    <div class="colorful-card theme-orange">
-                        <i class="bi bi-pencil-square fs-1"></i>
-                        <h4 class="mt-3">માર્ક્સ એન્ટ્રી</h4>
-                        <p class="small">બધી પરીક્ષાઓના ગુણ</p>
+
+                <h6 class="fw-bold mb-3 text-secondary">| માર્કસ એન્ટ્રી અને પ્રોસેસ</h6>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="dash-card bg-gradient-orange">
+                            <h6 class="fw-bold"><span class="badge bg-white text-danger me-2">સત્ર 1</span> પ્રથમ સત્ર કામગીરી</h6>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'trimasik_1')"><i class="bi bi-pencil-fill me-3"></i> ત્રિમાસિક પરીક્ષા (40)</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'patrak_b_1')"><i class="bi bi-person-heart me-3"></i> પત્રક - B વ્યક્તિત્વ વિકાસ</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'exam_1')"><i class="bi bi-journal-text me-3"></i> સત્રાંત પરીક્ષા (80)</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'swa_1')"><i class="bi bi-box-arrow-in-down me-3"></i> સ્વ-અધ્યયન માર્કસ (20)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dash-card bg-gradient-orange">
+                            <h6 class="fw-bold"><span class="badge bg-white text-danger me-2">સત્ર 2</span> દ્વિતીય સત્ર કામગીરી</h6>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'trimasik_2')"><i class="bi bi-pencil-fill me-3"></i> ત્રિમાસિક પરીક્ષા (40)</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'patrak_b_2')"><i class="bi bi-person-heart me-3"></i> પત્રક - B વ્યક્તિત્વ વિકાસ</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'exam_2')"><i class="bi bi-journal-text me-3"></i> સત્રાંત પરીક્ષા (80)</div>
+                            <div class="sub-menu-item" onclick="showSection('marks-entry', 'swa_2')"><i class="bi bi-box-arrow-in-down me-3"></i> સ્વ-અધ્યયન માર્કસ (20)</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4" onclick="showSection('analysis')">
-                    <div class="colorful-card theme-teal">
-                        <i class="bi bi-graph-up-arrow fs-1"></i>
-                        <h4 class="mt-3">પરિણામ એનાલિસિસ</h4>
-                        <p class="small">પાસ-નાપાસ અને રેન્કિંગ</p>
+
+                <h6 class="fw-bold mb-3 text-secondary">| ફાઈનલ રિપોર્ટ્સ અને પ્રિન્ટ</h6>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="dash-card bg-gradient-green">
+                            <h6><i class="bi bi-printer-fill me-2"></i> પત્રકો અને પરિણામ (PDF)</h6>
+                            <div class="sub-menu-item">વિદ્યાર્થીવાર પરિણામ જુઓ</div>
+                            <div class="sub-menu-item">પત્રક - C (વાર્ષિક તારણ)</div>
+                            <div class="sub-menu-item">બલ્ક પરિણામ કાર્ડ (High Quality)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dash-card bg-gradient-green">
+                            <h6><i class="bi bi-file-earmark-pdf-fill me-2"></i> ટાઈટલ પેજ પ્રિન્ટિંગ</h6>
+                            <div class="sub-menu-item">પત્રક-B કવર પેજ</div>
+                            <div class="sub-menu-item">પત્રક-C કવર પેજ</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="register" class="view-section">
-            <div class="d-flex justify-content-between mb-4">
-                <h3 class="fw-bold"><i class="bi bi-people-fill me-2"></i> વિદ્યાર્થી ડેટા</h3>
-                <button class="btn btn-primary rounded-pill" onclick="addNewStudentRow()">+ નવો વિદ્યાર્થી</button>
-            </div>
-            <div class="table-card">
-                <div class="table-responsive">
-                    <table class="table align-middle">
-                        <thead><tr><th>GR No.</th><th>નામ</th><th>ધોરણ</th><th>DISE No.</th><th>એક્શન</th></tr></thead>
-                        <tbody id="regTableBody"></tbody>
-                    </table>
-                </div>
-                <button class="btn btn-success w-100 mt-3 fw-bold" onclick="saveStudentsToFirebase()">બધો ડેટા સાચવો</button>
-            </div>
-        </div>
-
-        <div id="marks-entry" class="view-section">
-            <h3 class="fw-bold mb-4">પરીક્ષા માર્ક્સ એન્ટ્રી</h3>
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <select class="form-select" id="examType">
-                        <option value="trimasik">ત્રિમાસિક (40)</option>
-                        <option value="exam">સત્રાંત (80)</option>
-                        <option value="swa">સ્વ-અધ્યયન (20)</option>
-                    </select>
+            <div id="register" class="view-section">
+                <button class="btn btn-light mb-3" onclick="showSection('dashboard')">⬅️ પાછા જાઓ</button>
+                <div class="premium-table-card">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h4 class="fw-bold text-primary">વિદ્યાર્થી રજીસ્ટર</h4>
+                        <button class="btn btn-primary rounded-pill" onclick="addRow()">+ નવો વિદ્યાર્થી</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr><th>GR No.</th><th>નામ</th><th>ધોરણ</th><th>DISE No.</th><th>એક્શન</th></tr>
+                            </thead>
+                            <tbody id="regBody"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-success w-100 mt-3 py-3 fw-bold" onclick="saveToFirebase('students')">બધી વિગતો Firebase માં સાચવો</button>
                 </div>
             </div>
-            <div class="table-card">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr id="marksHeader"></tr>
-                        </thead>
-                        <tbody id="marksTableBody"></tbody>
-                    </table>
-                </div>
-                <button class="btn btn-warning w-100 mt-3 fw-bold" onclick="saveMarksToFirebase()">માર્ક્સ સાચવો</button>
-            </div>
-        </div>
 
+        </main>
     </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, doc, setDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDjusKZV-6ei_eOWRz2qmXNEK9qlmypAyw",
-            authDomain: "exam-system-eb30f.firebaseapp.com",
-            projectId: "exam-system-eb30f",
-            storageBucket: "exam-system-eb30f.firebasestorage.app",
-            messagingSenderId: "516597729558",
-            appId: "1:516597729558:web:050e0ab2675af99c12e837"
-        };
+    // Tamaru Config ahiya che
+    const firebaseConfig = {
+        apiKey: "AIzaSyDjusKZV-6ei_eOWRz2qmXNEK9qlmypAyw",
+        authDomain: "exam-system-eb30f.firebaseapp.com",
+        projectId: "exam-system-eb30f",
+        storageBucket: "exam-system-eb30f.firebasestorage.app",
+        messagingSenderId: "516597729558",
+        appId: "1:516597729558:web:050e0ab2675af99c12e837"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const SUBJECTS = ["ગુજરાતી", "હિન્દી", "અંગ્રેજી", "ગણિત", "વિજ્ઞાન", "સા.વિજ્ઞાન", "સંસ્કૃત"];
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        // Navigation
-        window.showSection = (id) => {
-            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            if(id === 'register') loadStudents();
-            if(id === 'marks-entry') loadMarksTable();
-        };
+    // --- View Switching ---
+    window.showSection = (id, type = null) => {
+        document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'register') fetchStudents();
+        console.log("Loading section:", id, "Type:", type);
+    };
 
-        // --- REGISTRATION LOGIC ---
-        async function loadStudents() {
-            const snap = await getDocs(collection(db, "students"));
-            const tbody = document.getElementById("regTableBody");
-            tbody.innerHTML = "";
-            snap.forEach(d => {
-                const s = d.data();
-                tbody.innerHTML += `<tr data-id="${d.id}">
+    // --- Student Logic ---
+    async function fetchStudents() {
+        const snap = await getDocs(collection(db, "students"));
+        const tbody = document.getElementById("regBody");
+        tbody.innerHTML = "";
+        snap.forEach(d => {
+            const s = d.data();
+            tbody.innerHTML += `
+                <tr data-id="${d.id}">
                     <td><input type="text" class="form-control gr" value="${s.gr}"></td>
                     <td><input type="text" class="form-control name" value="${s.name}"></td>
                     <td><input type="text" class="form-control std" value="${s.std}"></td>
                     <td><input type="text" class="form-control dise" value="${s.dise}"></td>
-                    <td><button class="btn btn-danger btn-sm" onclick="deleteStudent('${d.id}')">X</button></td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteDocById('students', '${d.id}')">X</button></td>
                 </tr>`;
-            });
+        });
+    }
+
+    window.addRow = () => {
+        document.getElementById("regBody").insertAdjacentHTML('afterbegin', `
+            <tr>
+                <td><input type="text" class="form-control gr"></td>
+                <td><input type="text" class="form-control name"></td>
+                <td><input type="text" class="form-control std"></td>
+                <td><input type="text" class="form-control dise"></td>
+                <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">X</button></td>
+            </tr>`);
+    };
+
+    window.saveToFirebase = async (col) => {
+        const rows = document.querySelectorAll("#regBody tr");
+        for (let row of rows) {
+            const data = {
+                gr: row.querySelector(".gr").value,
+                name: row.querySelector(".name").value,
+                std: row.querySelector(".std").value,
+                dise: row.querySelector(".dise").value
+            };
+            const id = row.dataset.id;
+            if(id) await setDoc(doc(db, col, id), data);
+            else await addDoc(collection(db, col), data);
         }
+        alert("ડેટા સફળતાપૂર્વક સાચવવામાં આવ્યો!");
+        fetchStudents();
+    };
 
-        window.addNewStudentRow = () => {
-            document.getElementById("regTableBody").insertAdjacentHTML('afterbegin', `
-                <tr class="new-row">
-                    <td><input type="text" class="form-control gr"></td>
-                    <td><input type="text" class="form-control name"></td>
-                    <td><input type="text" class="form-control std"></td>
-                    <td><input type="text" class="form-control dise"></td>
-                    <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">X</button></td>
-                </tr>`);
-        };
-
-        window.saveStudentsToFirebase = async () => {
-            const rows = document.querySelectorAll("#regTableBody tr");
-            for (let row of rows) {
-                const data = { 
-                    gr: row.querySelector(".gr").value, 
-                    name: row.querySelector(".name").value, 
-                    std: row.querySelector(".std").value, 
-                    dise: row.querySelector(".dise").value 
-                };
-                if(row.dataset.id) await setDoc(doc(db, "students", row.dataset.id), data);
-                else await addDoc(collection(db, "students"), data);
-            }
-            alert("ડેટા સેવ થયો!");
-            loadStudents();
-        };
-
-        // --- MARKS ENTRY LOGIC ---
-        async function loadMarksTable() {
-            const head = document.getElementById("marksHeader");
-            const body = document.getElementById("marksTableBody");
-            head.innerHTML = `<th class="sticky-col">વિદ્યાર્થીનું નામ</th>` + SUBJECTS.map(s => `<th>${s}</th>`).join("");
-            
-            const snap = await getDocs(collection(db, "students"));
-            body.innerHTML = "";
-            snap.forEach(async d => {
-                const s = d.data();
-                // Har student na marks alag "marks" collection mathi lavvana
-                let row = `<tr><td class="sticky-col fw-bold">${s.name}</td>`;
-                SUBJECTS.forEach(sub => {
-                    row += `<td><input type="number" class="marks-input" data-gr="${s.gr}" data-sub="${sub}"></td>`;
-                });
-                row += `</tr>`;
-                body.innerHTML += row;
-            });
-        }
-
-        window.saveMarksToFirebase = async () => {
-            const inputs = document.querySelectorAll(".marks-input");
-            const examType = document.getElementById("examType").value;
-            for (let inp of inputs) {
-                const key = `${inp.dataset.gr}_${inp.dataset.sub}_${examType}`;
-                await setDoc(doc(db, "marks", key), {
-                    gr: inp.dataset.gr,
-                    sub: inp.dataset.sub,
-                    type: examType,
-                    val: inp.value || 0
-                });
-            }
-            alert("માર્ક્સ સાચવવામાં આવ્યા!");
-        };
-    </script>
+</script>
 </body>
 </html>
