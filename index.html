@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Result Pro - Cloud System</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root { --primary: #4f46e5; --bg-body: #f0f2f5; }
+        body { font-family: 'Hind Vadodara', sans-serif; background-color: var(--bg-body); margin: 0; }
+        .view-section { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Dashboard Styles */
+        .colorful-card { border: none; border-radius: 20px; color: white; padding: 25px; transition: 0.3s; cursor: pointer; height: 100%; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .colorful-card:hover { transform: translateY(-10px); }
+        .theme-blue { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+        .theme-orange { background: linear-gradient(135deg, #f97316, #db2777); }
+        .theme-teal { background: linear-gradient(135deg, #0d9488, #059669); }
+
+        /* Table & Input Styles */
+        .table-card { background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; padding: 20px; }
+        .marks-input { width: 60px; border: 1px solid #e2e8f0; border-radius: 6px; text-align: center; font-weight: 700; }
+        .sticky-col { position: sticky; left: 0; background: white; z-index: 10; border-right: 2px solid #f1f5f9; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-primary" href="#" onclick="showSection('dashboard')">
+                <i class="bi bi-layers-fill me-2"></i> Result Pro Cloud
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        
+        <div id="dashboard" class="view-section active">
+            <div class="bg-primary text-white p-5 rounded-4 mb-5 shadow-lg">
+                <h1 class="fw-bold">નમસ્તે, એડમિન!</h1>
+                <p class="fs-5 opacity-75">તમારી શાળાનું સંપૂર્ણ ક્લાઉડ બેઝ્ડ પરિણામ મેનેજમેન્ટ.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" onclick="showSection('register')">
+                    <div class="colorful-card theme-blue">
+                        <i class="bi bi-person-plus-fill fs-1"></i>
+                        <h4 class="mt-3">વિદ્યાર્થી રજીસ્ટ્રેશન</h4>
+                        <p class="small">નવા વિદ્યાર્થી ઉમેરો/સુધારો</p>
+                    </div>
+                </div>
+                <div class="col-md-4" onclick="showSection('marks-entry')">
+                    <div class="colorful-card theme-orange">
+                        <i class="bi bi-pencil-square fs-1"></i>
+                        <h4 class="mt-3">માર્ક્સ એન્ટ્રી</h4>
+                        <p class="small">બધી પરીક્ષાઓના ગુણ</p>
+                    </div>
+                </div>
+                <div class="col-md-4" onclick="showSection('analysis')">
+                    <div class="colorful-card theme-teal">
+                        <i class="bi bi-graph-up-arrow fs-1"></i>
+                        <h4 class="mt-3">પરિણામ એનાલિસિસ</h4>
+                        <p class="small">પાસ-નાપાસ અને રેન્કિંગ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="register" class="view-section">
+            <div class="d-flex justify-content-between mb-4">
+                <h3 class="fw-bold"><i class="bi bi-people-fill me-2"></i> વિદ્યાર્થી ડેટા</h3>
+                <button class="btn btn-primary rounded-pill" onclick="addNewStudentRow()">+ નવો વિદ્યાર્થી</button>
+            </div>
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead><tr><th>GR No.</th><th>નામ</th><th>ધોરણ</th><th>DISE No.</th><th>એક્શન</th></tr></thead>
+                        <tbody id="regTableBody"></tbody>
+                    </table>
+                </div>
+                <button class="btn btn-success w-100 mt-3 fw-bold" onclick="saveStudentsToFirebase()">બધો ડેટા સાચવો</button>
+            </div>
+        </div>
+
+        <div id="marks-entry" class="view-section">
+            <h3 class="fw-bold mb-4">પરીક્ષા માર્ક્સ એન્ટ્રી</h3>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <select class="form-select" id="examType">
+                        <option value="trimasik">ત્રિમાસિક (40)</option>
+                        <option value="exam">સત્રાંત (80)</option>
+                        <option value="swa">સ્વ-અધ્યયન (20)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr id="marksHeader"></tr>
+                        </thead>
+                        <tbody id="marksTableBody"></tbody>
+                    </table>
+                </div>
+                <button class="btn btn-warning w-100 mt-3 fw-bold" onclick="saveMarksToFirebase()">માર્ક્સ સાચવો</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, doc, setDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjusKZV-6ei_eOWRz2qmXNEK9qlmypAyw",
+            authDomain: "exam-system-eb30f.firebaseapp.com",
+            projectId: "exam-system-eb30f",
+            storageBucket: "exam-system-eb30f.firebasestorage.app",
+            messagingSenderId: "516597729558",
+            appId: "1:516597729558:web:050e0ab2675af99c12e837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const SUBJECTS = ["ગુજરાતી", "હિન્દી", "અંગ્રેજી", "ગણિત", "વિજ્ઞાન", "સા.વિજ્ઞાન", "સંસ્કૃત"];
+
+        // Navigation
+        window.showSection = (id) => {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(id === 'register') loadStudents();
+            if(id === 'marks-entry') loadMarksTable();
+        };
+
+        // --- REGISTRATION LOGIC ---
+        async function loadStudents() {
+            const snap = await getDocs(collection(db, "students"));
+            const tbody = document.getElementById("regTableBody");
+            tbody.innerHTML = "";
+            snap.forEach(d => {
+                const s = d.data();
+                tbody.innerHTML += `<tr data-id="${d.id}">
+                    <td><input type="text" class="form-control gr" value="${s.gr}"></td>
+                    <td><input type="text" class="form-control name" value="${s.name}"></td>
+                    <td><input type="text" class="form-control std" value="${s.std}"></td>
+                    <td><input type="text" class="form-control dise" value="${s.dise}"></td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteStudent('${d.id}')">X</button></td>
+                </tr>`;
+            });
+        }
+
+        window.addNewStudentRow = () => {
+            document.getElementById("regTableBody").insertAdjacentHTML('afterbegin', `
+                <tr class="new-row">
+                    <td><input type="text" class="form-control gr"></td>
+                    <td><input type="text" class="form-control name"></td>
+                    <td><input type="text" class="form-control std"></td>
+                    <td><input type="text" class="form-control dise"></td>
+                    <td><button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">X</button></td>
+                </tr>`);
+        };
+
+        window.saveStudentsToFirebase = async () => {
+            const rows = document.querySelectorAll("#regTableBody tr");
+            for (let row of rows) {
+                const data = { 
+                    gr: row.querySelector(".gr").value, 
+                    name: row.querySelector(".name").value, 
+                    std: row.querySelector(".std").value, 
+                    dise: row.querySelector(".dise").value 
+                };
+                if(row.dataset.id) await setDoc(doc(db, "students", row.dataset.id), data);
+                else await addDoc(collection(db, "students"), data);
+            }
+            alert("ડેટા સેવ થયો!");
+            loadStudents();
+        };
+
+        // --- MARKS ENTRY LOGIC ---
+        async function loadMarksTable() {
+            const head = document.getElementById("marksHeader");
+            const body = document.getElementById("marksTableBody");
+            head.innerHTML = `<th class="sticky-col">વિદ્યાર્થીનું નામ</th>` + SUBJECTS.map(s => `<th>${s}</th>`).join("");
+            
+            const snap = await getDocs(collection(db, "students"));
+            body.innerHTML = "";
+            snap.forEach(async d => {
+                const s = d.data();
+                // Har student na marks alag "marks" collection mathi lavvana
+                let row = `<tr><td class="sticky-col fw-bold">${s.name}</td>`;
+                SUBJECTS.forEach(sub => {
+                    row += `<td><input type="number" class="marks-input" data-gr="${s.gr}" data-sub="${sub}"></td>`;
+                });
+                row += `</tr>`;
+                body.innerHTML += row;
+            });
+        }
+
+        window.saveMarksToFirebase = async () => {
+            const inputs = document.querySelectorAll(".marks-input");
+            const examType = document.getElementById("examType").value;
+            for (let inp of inputs) {
+                const key = `${inp.dataset.gr}_${inp.dataset.sub}_${examType}`;
+                await setDoc(doc(db, "marks", key), {
+                    gr: inp.dataset.gr,
+                    sub: inp.dataset.sub,
+                    type: examType,
+                    val: inp.value || 0
+                });
+            }
+            alert("માર્ક્સ સાચવવામાં આવ્યા!");
+        };
+    </script>
+</body>
+</html>
